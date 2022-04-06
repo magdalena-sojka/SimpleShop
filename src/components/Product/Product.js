@@ -33,7 +33,7 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
             <ul className={styles.choices}>
               {sizes.map(size =>
                 <li key={shortid()}>
-                  <button type="button" className={clsx(currentSize === size && styles.active)}>{size.name}</button>
+                  <button type="button" className={clsx(currentSize === size && styles.active)} onClick={() => setCurrentSize(size)}>{size.name}</button>
                 </li>
               )}
             </ul>
@@ -43,7 +43,7 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
             <ul className={styles.choices}>
               {colors.map(color =>
                 <li key={shortid()}>
-                  <button type="button" className={clsx(prepareColorClassName(color), currentColor === color && styles.active)}></button>
+                  <button type="button" className={clsx(prepareColorClassName(color), currentColor === color && styles.active)} onClick={() => setCurrentColor(color)}></button>
                 </li>
               )}
             </ul>
