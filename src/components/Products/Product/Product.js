@@ -1,6 +1,6 @@
 import styles from './Product.module.scss';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import ProductImage from './ProductImage/ProductImage.js'
 import ProductForm from './ProductForm/ProductForm.js'
 
@@ -10,9 +10,10 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
   const [currentColor, setCurrentColor] = useState(colors[0]);
   const [currentSize, setCurrentSize] = useState(sizes[0]);
   
-  const getPrice = () => {
-    return (basePrice + sizes.find((element) => element === currentSize).additionalPrice);
-  };
+  const getPrice = useMemo(() => {
+    const addition = sizes.find((element) => element === currentSize).additionalPrice;
+      return (basePrice + addition);
+  }, [currentSize, basePrice, sizes]);
 
   const addToCart = event => {
     event.preventDefault();
@@ -30,7 +31,7 @@ const Product = ({ name, title, colors, sizes, basePrice }) => {
       <div>
         <header>
           <h2 className={styles.name}>{title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          <span className={styles.price}>Price: {getPrice}$</span>
         </header>
         <ProductForm
           addToCart={addToCart}
